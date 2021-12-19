@@ -7,30 +7,18 @@
         href="/"
         class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
       >
-        <svg
-          class="bi me-2"
-          width="40"
-          height="32"
-          role="img"
-          aria-label="Bootstrap"
-        >
-          <use xlink:href="header.icon.svg#bootstrap" />
-        </svg>
+        <img src="Logo-dark.svg" alt="" />
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
+        <li><router-link to="/" class="nav-link px-2 link-secondary">Home</router-link></li>
+        
         <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">
-          Login
-        </button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <router-link to="/login" class="btn btn-outline-dark me-2">Login</router-link>
+        <router-link to="/register" class="btn btn-dark">Sign-up</router-link>
       </div>
     </header>
   </div>

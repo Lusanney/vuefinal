@@ -1,14 +1,12 @@
 <template>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-    rel="stylesheet"
-  />
-
   <section class="d-flex vh-100 text-center text-white bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <header class="mb-auto">
         <div>
-          <h3 class="float-md-start mb-0">GREEKPROBIN</h3>
+          <h3 class="float-md-start mb-0">
+            <img src="Logo-white.svg" class="logo-svg" />
+          </h3>
+
           <nav class="nav nav-masthead justify-content-center float-md-end">
             <router-link to="/" class="nav-link active">Home</router-link>
             <router-link to="/about" class="nav-link">About</router-link>
@@ -17,7 +15,7 @@
       </header>
 
       <main class="px-3">
-        <h1>A place you'd never forget</h1>
+        <h1>A <span style="font-family: 'Lobster', cursive">Stay.</span> you'd be hard to say</h1>
         <p class="lead">
           Hotels here have a high, stylish standard and are perfect for a quiet
           couple's holiday or family city retreat
@@ -31,11 +29,8 @@
         </p>
       </main>
 
-      <footer
-        class="mt-auto text-white"
-        style="font-family: 'Pacifico', cursive"
-      >
-        <p>from Lan Anh with ❤️</p>
+      <footer class="mt-auto text-white">
+        <p style="font-family: 'Pacifico', cursive">from Lan Anh with ❤️</p>
       </footer>
     </div>
   </section>
@@ -49,6 +44,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.logo-svg {
+  fill: white;
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;

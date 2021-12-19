@@ -1,5 +1,5 @@
 <template>
-  <form class="border mt-3 p-3 rounded">
+  <div class="border-0 shadow mt-3 p-3 rounded bg-white">
     <div class="row">
       <div class="col-md">
         <div class="form-floating">
@@ -21,6 +21,7 @@
             type="date"
             class="form-control"
             id="checkin"
+            v-model="search.checkInDate"
             placeholder="Check-in date"
           />
           <label for="checkin">Check-in date</label>
@@ -33,6 +34,7 @@
             type="date"
             class="form-control"
             id="checkout"
+            v-model="search.checkOutDate"
             placeholder="Check-out date"
           />
           <label for="checkout">Check-out date</label>
@@ -48,6 +50,7 @@
             placeholder="Adults 👩"
             min="1"
             max="9"
+            v-model="search.adults"
           />
           <label for="adults">Adults 👩</label>
         </div>
@@ -55,11 +58,15 @@
     </div>
 
     <div class="d-flex mt-3">
-      <router-link to="" class="btn btn-dark btn-lg mx-auto px-5"
-        >Search</router-link
+      <button
+        class="btn btn-dark btn-lg mx-auto px-5"
+        v-on:click="computeSearchRoute"
+        style="font-family: 'Lobster', cursive"
       >
+        Stay.
+      </button>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -71,18 +78,48 @@ export default {
     VueGoogleAutocomplete,
   },
   data() {
-    return { address: "" };
+    return {
+      search: {
+        address: this.address ?? "",
+        geometry: {
+          lat: null,
+          lng: null,
+        },
+        checkInDate: this.checkInDate ?? null,
+        checkOutDate: this.checkOutDate ?? null,
+        adults: this.adults ?? 1,
+      },
+    };
+  },
+  props: {
+    address: String,
+    checkInDate: Date,
+    checkOutDate: Date,
+    adults: Number,
   },
   mounted() {
-    // To demonstrate functionality of exposed component functions
-    // Here we make focus on the user input
-    this.$refs.address.focus();
+    // this.$refs.address.focus();
+
+    this.$refs.address.update(this.address);
   },
   methods: {
-    getAddressData: function (addressData, placeResultData, id) {
-      console.log("hello world");
-      this.address = addressData;
-      console.log(addressData, placeResultData, id);
+    getAddressData: function (addressData, placeResultData) {
+      this.search.address = placeResultData.formatted_address;
+      this.search.geometry.lat = addressData.latitude;
+      this.search.geometry.lng = addressData.longitude;
+    },
+    computeSearchRoute: function () {
+      this.$router.push({
+        path: "metasearch",
+        query: {
+          lat: this.search.geometry.lat,
+          lng: this.search.geometry.lng,
+          checkInDate: this.search.checkInDate,
+          checkOutDate: this.search.checkOutDate,
+          adults: this.search.adults,
+          address: this.search.address,
+        },
+      });
     },
   },
 };

@@ -22,6 +22,16 @@ const routes = [
     name: "MetaSearch",
     component: () => import("../views/MetaSearch.vue"),
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Signup.vue"),
+  },
 ];
 
 const router = createRouter({
