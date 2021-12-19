@@ -2,15 +2,21 @@
   <div class="card shadow border-0 rounded-3" style="width: 18rem">
     <img :src="imgUrl" alt="" height="225" />
 
-    <div class="card-body" style="height: 240px">
-      <h5 class="card-title">{{ city }}</h5>
-      <p class="card-text">
+    <div
+      class="card-body"
+      style="height: 240px"
+      :class="!dark ? 'bg-light' : ''"
+      :style="dark ? 'background-color: var(--bs-gray-800)' : ''"
+    >
+      <h5 class="card-title" :class="`text-${dark ? 'light' : 'dark'}`">{{ city }}</h5>
+      <p class="card-text" :class="`text-${dark ? 'light' : 'dark'}`">
         {{ description }}
       </p>
 
       <a
         href="#"
-        class="btn btn-dark city-stay"
+        class="btn city-stay"
+        :class="`btn-${dark ? 'light' : 'dark'}`"
         style="font-family: 'Lobster', cursive"
         >Stay.</a
       >
@@ -25,6 +31,11 @@ export default {
     city: String,
     description: String,
     imgUrl: String,
+  },
+  computed: {
+    dark() {
+      return this.$store.getters.getDark;
+    },
   },
 };
 </script>

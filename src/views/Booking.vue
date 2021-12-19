@@ -2,10 +2,20 @@
   <Navbar />
 
   <section class="hotel-search container">
-    <div class="p-5 mb-4 bg-light rounded-3">
+    <div
+      class="p-5 mb-4 rounded-3"
+      :class="!dark ? 'bg-light' : ''"
+      :style="dark ? 'background-color: var(--bs-gray-800)' : ''"
+    >
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Find yourself a stay.</h1>
-        <p class="col-md-8 fs-4">
+        <h1
+          class="display-5 fw-bold"
+          :class="`text-${dark ? 'light' : 'dark'}`"
+        >
+          Find yourself a
+          <span style="font-family: 'Lobster', cursive">Stay.</span>
+        </h1>
+        <p class="col-md-8 fs-4" :class="`text-${dark ? 'light' : 'dark'}`">
           Take a deep breath in the morning. Immerse in the nature.
         </p>
         <HotelSearchBox />
@@ -14,7 +24,7 @@
   </section>
 
   <section class="container mb-5">
-    <h2>Popular cities</h2>
+    <h2 :class="`text-${dark ? 'light' : 'dark'}`">Popular cities</h2>
 
     <div class="cities-group d-flex flex-row flex-wrap justify-content-evenly">
       <City
@@ -47,7 +57,11 @@
   <section class="container">
     <div class="row">
       <div class="col-md-6">
-        <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <div
+          class="h-100 p-5 text-white rounded-3"
+          :class="dark ? '' : 'bg-dark'"
+          :style="dark ? 'background-color: var(--bs-gray-800)': ''"
+        >
           <h2>Covid safety</h2>
           <p>
             Always check for local government information and hotel hosts before
@@ -72,7 +86,7 @@
 import Navbar from "../components/Navbar.vue";
 import HotelSearchBox from "../components/HotelSearch/HotelSearchBox.vue";
 import City from "../components/City.vue";
-import Footer from '../components/Footer.vue';
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Booking",
@@ -80,7 +94,12 @@ export default {
     Navbar,
     HotelSearchBox,
     City,
-    Footer
+    Footer,
+  },
+  computed: {
+    dark() {
+      return this.$store.getters.getDark;
+    },
   },
 };
 </script>

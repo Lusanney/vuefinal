@@ -58,7 +58,8 @@
 
       <div class="col-md">
         <button
-          class="btn btn-dark btn-lg mx-auto px-5"
+          class="btn btn-lg mx-auto px-5"
+          :class="`btn-${dark ? 'light' : 'dark'}`"
           v-on:click="computeSearchRoute"
           style="font-family: 'Lobster', cursive"
         >
@@ -103,6 +104,11 @@ export default {
     // this.$refs.address.focus();
 
     this.$refs.address.update(this.address);
+  },
+  computed: {
+    dark() {
+      return this.$store.getters.getDark;
+    },
   },
   methods: {
     getAddressData: function (addressData, placeResultData) {

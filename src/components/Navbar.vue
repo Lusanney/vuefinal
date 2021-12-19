@@ -5,20 +5,56 @@
     >
       <a
         href="/"
-        class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
+        class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none"
       >
-        <img src="Logo-dark.svg" alt="" />
+        <img :src="`Logo-${dark === true ? 'light' : 'dark'}.svg`" alt="" />
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><router-link to="/" class="nav-link px-2 link-secondary">Home</router-link></li>
-        
-        <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+        <li>
+          <router-link to="/" class="nav-link px-2 link-secondary"
+            >Home</router-link
+          >
+        </li>
+
+        <li>
+          <a
+            href="#"
+            class="nav-link px-2"
+            :class="`link-${dark === true ? 'light' : 'dark'}`"
+            >About</a
+          >
+        </li>
       </ul>
 
       <div class="col-md-3 text-end">
-        <router-link to="/login" class="btn btn-outline-dark me-2">Login</router-link>
-        <router-link to="/register" class="btn btn-dark">Sign-up</router-link>
+        <router-link
+          to="/login"
+          class="btn me-2"
+          :class="`btn-outline-${dark === true ? 'light' : 'dark'}`"
+          >Login</router-link
+        >
+        <router-link
+          to="/register"
+          class="btn"
+          :class="`btn-${dark === true ? 'light' : 'dark'}`"
+          >Sign-up</router-link
+        >
+
+        <div class="form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            v-model="dark"
+            id="flexSwitchCheckDefault"
+          />
+          <label
+            class="form-check-label"
+            for="flexSwitchCheckDefault"
+            :class="`text-${dark ? 'light' : 'dark'}`"
+            >Dark mode</label
+          >
+        </div>
       </div>
     </header>
   </div>
@@ -27,6 +63,25 @@
 <script>
 export default {
   name: "Navbar",
+  data() {
+    return {
+      dark: false,
+    };
+  },
+  mounted() {
+    this.dark = this.$store.state.dark;
+  },
+  watch: {
+    dark(newValue) {
+      this.$store.commit("setDark", { dark: newValue });
+      document
+        .querySelector("body")
+        .setAttribute(
+          "style",
+          `background-color: var(--bs-${newValue ? "dark" : "white"})`
+        );
+    },
+  },
 };
 </script>
 

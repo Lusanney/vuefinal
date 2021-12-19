@@ -1,5 +1,8 @@
 <template>
-  <div class="border-0 shadow mt-3 p-3 rounded bg-white">
+  <div
+    class="border-0 shadow mt-3 p-3 rounded"
+    :class="`bg-${dark ? 'dark' : 'white'}`"
+  >
     <div class="row">
       <div class="col-md">
         <div class="form-floating">
@@ -59,7 +62,8 @@
 
     <div class="d-flex mt-3">
       <button
-        class="btn btn-dark btn-lg mx-auto px-5"
+        class="btn btn-lg mx-auto px-5"
+        :class="`btn-${dark ? 'light' : 'dark'}`"
         v-on:click="computeSearchRoute"
         style="font-family: 'Lobster', cursive"
       >
@@ -99,8 +103,12 @@ export default {
   },
   mounted() {
     // this.$refs.address.focus();
-
     this.$refs.address.update(this.address);
+  },
+  computed: {
+    dark() {
+      return this.$store.getters.getDark;
+    },
   },
   methods: {
     getAddressData: function (addressData, placeResultData) {

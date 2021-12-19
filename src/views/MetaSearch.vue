@@ -11,15 +11,13 @@
   </section>
 
   <section class="hotel-section container">
-    <div class="hotel-loading d-flex mt-5">
-      <span v-if="loading" class="mx-auto">
-        <img src="cat.loader.black.svg" alt="" />
-      </span>
-    </div>
-
     <div class="row">
       <div class="col-4">
-        <div class="p-5 text-white bg-dark rounded-3">
+        <div
+          class="p-5 text-white rounded-3"
+          :class="dark ? '' : 'bg-dark'"
+          :style="dark ? 'background-color: var(--bs-gray-800)' : ''"
+        >
           <h2>Covid safety</h2>
           <p>
             Always check for local government information and hotel hosts before
@@ -34,15 +32,21 @@
           >
         </div>
 
-        <div class="border rounded p-5 mt-3">
-          <p>Options</p>
+        <div
+          class="rounded p-5 mt-3"
+          :class="dark ? '' : 'border bg-dark'"
+          :style="dark ? 'background-color: var(--bs-gray-800)' : ''"
+        >
+          <p :class="dark ? 'text-white' : 'text-dark'">Options</p>
           <div class="form-floating">
             <select
               class="form-select"
               id="floatingSelect"
               aria-label="Floating label select example"
             >
-              <option value="STAR_RATING_HIGHEST_FIRST" selected>Highest Rating First</option>
+              <option value="STAR_RATING_HIGHEST_FIRST" selected>
+                Highest Rating First
+              </option>
               <option value="BEST_SELLER">Best Seller</option>
               <option value="PRICE_HIGHEST_FIRST">Highest Price First</option>
             </select>
@@ -51,6 +55,11 @@
         </div>
       </div>
       <div class="col-8">
+        <div class="hotel-loading d-flex">
+          <span v-if="loading" class="mx-auto mt-5">
+            <img :src="dark ? 'cat.loader.light.svg' : 'cat.loader.dark.svg'" alt="" />
+          </span>
+        </div>
         <div class="hotel-result" v-if="!loading">
           <div
             class="hotel-group"
@@ -100,6 +109,11 @@ export default {
   },
   mounted() {
     this.fetchHotelsOnLoad(this.$route.query);
+  },
+  computed: {
+    dark() {
+      return this.$store.getters.getDark;
+    },
   },
   methods: {
     fetchHotelsOnLoad: async function (queryParams) {
