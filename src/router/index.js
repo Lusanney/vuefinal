@@ -32,6 +32,11 @@ const routes = [
     name: "Register",
     component: () => import("../views/Signup.vue"),
   },
+  {
+    path: "/changepassword",
+    name: "ChangePassword",
+    component: () => import("../views/ChangePassword.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -18,11 +18,20 @@
         </li>
 
         <li>
-          <a
-            href="#"
+          <router-link
+            to="/booking"
             class="nav-link px-2"
             :class="`link-${dark === true ? 'light' : 'dark'}`"
-            >About</a
+            >Booking</router-link
+          >
+        </li>
+
+        <li>
+          <router-link
+            to="/about"
+            class="nav-link px-2"
+            :class="`link-${dark === true ? 'light' : 'dark'}`"
+            >About</router-link
           >
         </li>
       </ul>
