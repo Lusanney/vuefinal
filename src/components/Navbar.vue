@@ -37,32 +37,77 @@
       </ul>
 
       <div class="col-md-3 text-end">
-        <router-link
-          to="/login"
-          class="btn me-2"
-          :class="`btn-outline-${dark === true ? 'light' : 'dark'}`"
-          >Login</router-link
-        >
-        <router-link
-          to="/register"
-          class="btn"
-          :class="`btn-${dark === true ? 'light' : 'dark'}`"
-          >Sign-up</router-link
-        >
-
-        <div class="form-switch">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            v-model="dark"
-            id="flexSwitchCheckDefault"
-          />
-          <label
-            class="form-check-label"
-            for="flexSwitchCheckDefault"
-            :class="`text-${dark ? 'light' : 'dark'}`"
-            >Dark mode</label
+        <div v-show="!authenticated">
+          <router-link
+            to="/login"
+            class="btn me-2"
+            :class="`btn-outline-${dark === true ? 'light' : 'dark'}`"
+            >Login</router-link
           >
+          <router-link
+            to="/register"
+            class="btn"
+            :class="`btn-${dark === true ? 'light' : 'dark'}`"
+            >Sign-up</router-link
+          >
+
+          <div class="form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              v-model="dark"
+              id="flexSwitchCheckDefault"
+            />
+            <label
+              class="form-check-label"
+              for="flexSwitchCheckDefault"
+              :class="`text-${dark ? 'light' : 'dark'}`"
+              >Dark mode</label
+            >
+          </div>
+        </div>
+
+        <div v-show="authenticated">
+          <b class="mx-3 inline-block">Le Lan (Calcifer) Anh</b>
+          <div class="dropdown d-inline-block">
+            <a
+              href="#"
+              class="d-block link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="user.png"
+                alt="mdo"
+                width="32"
+                height="32"
+                style="
+                  border-width: 2px;
+                  border-style: solid;
+                  border-color: #28a745;
+                "
+                class="rounded-circle"
+              />
+            </a>
+
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="dropdownUser"
+            >
+              <li>
+                <router-link to="/profile" class="dropdown-item"
+                  >Profile</router-link
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <button class="dropdown-item" v-on:click="signOut">
+                  Sign out
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
@@ -77,8 +122,20 @@ export default {
       dark: false,
     };
   },
+  methods: {
+    signOut() {
+      this.$store.commit("setAuthenticated", { authenticated: false });
+      this.$router.push({ name: "Booking" });
+      localStorage.removeItem('authenticated');
+    },
+  },
   mounted() {
     this.dark = this.$store.state.dark;
+  },
+  computed: {
+    authenticated() {
+      return this.$store.getters.getAuthenticated;
+    },
   },
   watch: {
     dark(newValue) {

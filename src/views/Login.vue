@@ -16,6 +16,7 @@
             type="email"
             class="form-control"
             id="floatingInput"
+            v-model="auth.email"
             placeholder="name@example.com"
           />
           <label for="floatingInput">Email address</label>
@@ -25,6 +26,7 @@
             type="password"
             class="form-control"
             id="floatingPassword"
+            v-model="auth.password"
             placeholder="Password"
           />
           <label for="floatingPassword">Password</label>
@@ -35,7 +37,7 @@
             <input type="checkbox" value="remember-me" /> Remember me
           </label>
         </div>
-        <button class="w-100 btn btn-lg btn-dark" type="submit">
+        <button class="w-100 btn btn-lg btn-dark" v-on:click="signIn">
           Sign in
         </button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
@@ -43,6 +45,32 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    auth: {
+      email: "lananhnobi@gmail.com",
+      password: "Lananh2601",
+    },
+  }),
+  methods: {
+    signIn(event) {
+      event.preventDefault();
+      console.log("hello world");
+      if (
+        this.auth.email !== "lananhnobi@gmail.com" ||
+        this.auth.password !== "Lananh2601"
+      ) {
+        return;
+      }
+
+      this.$store.commit("setAuthenticated", { authenticated: true });
+      this.$router.push({ name: "Booking" });
+    },
+  },
+};
+</script>
 
 <style scoped>
 #signin-section {

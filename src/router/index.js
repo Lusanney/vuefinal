@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 
 const routes = [
@@ -37,11 +37,31 @@ const routes = [
     name: "ChangePassword",
     component: () => import("../views/ChangePassword.vue"),
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
+});
+
+const privateRoutes = ["Profile"];
+const authRoutes = ["Register", "Login"];
+
+router.beforeEach((to, from, next) => {
+  if (privateRoutes.includes(to.name) && !localStorage.authenticated) {
+    next({ name: "Login" });
+  } else if (authRoutes.includes(to.name) && localStorage.authenticated) {
+    next({
+      name: "Home",
+    });
+  } else {
+    next();
+  }
 });
 
 export default router;

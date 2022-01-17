@@ -49,7 +49,7 @@
           </li>
           <li class="mb-1">
             <router-link
-              to="/changpassword"
+              to="/changepassword"
               class="link-secondary text-decoration-none"
               >Change Password</router-link
             >
